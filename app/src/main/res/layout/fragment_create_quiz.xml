@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/frameLayout3"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragments.createQuiz.CreateQuizFragment">
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:hint="Enter Quiz Title"
+        app:endIconMode="clear_text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etQuizTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <Button
+        android:id="@+id/btnPickStartDate"
+        style="?attr/materialButtonOutlinedStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:paddingTop="16dp"
+        android:paddingBottom="16dp"
+        android:text="Pick Date"
+        app:icon="@drawable/ic_baseline_date_range_24"
+        app:iconPadding="8dp"
+        app:layout_constraintEnd_toStartOf="@+id/btnPickStartTime"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:text="Quiz Start Timestamp"
+        android:textColor="@color/matteBlack"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout" />
+
+    <Button
+        android:id="@+id/btnPickStartTime"
+        style="?attr/materialButtonOutlinedStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:paddingTop="16dp"
+        android:paddingBottom="16dp"
+        android:text="Pick Time"
+        app:icon="@drawable/ic_baseline_timer_24"
+        app:iconPadding="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/btnPickStartDate"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/btnPickStartDate"
+        app:layout_constraintTop_toTopOf="@+id/btnPickStartDate" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:text="Quiz End Timestamp"
+        android:textColor="@color/matteBlack"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnPickStartDate" />
+
+    <Button
+        android:id="@+id/btnPickEndDate"
+        style="?attr/materialButtonOutlinedStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:paddingTop="16dp"
+        android:paddingBottom="16dp"
+        android:text="Pick Date"
+        app:icon="@drawable/ic_baseline_date_range_24"
+        app:iconPadding="8dp"
+        app:layout_constraintEnd_toStartOf="@+id/btnPickEndTime"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+
+    <Button
+        android:id="@+id/btnPickEndTime"
+        style="?attr/materialButtonOutlinedStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:paddingTop="16dp"
+        android:paddingBottom="16dp"
+        android:text="Pick Time"
+        app:icon="@drawable/ic_baseline_timer_24"
+        app:iconPadding="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/btnPickEndDate"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/btnPickEndDate"
+        app:layout_constraintTop_toTopOf="@+id/btnPickEndDate" />
+
+    <Button
+        android:id="@+id/btnAddQuetions"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:text="Add/Edit Questions"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnPickEndDate" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
