@@ -26,5 +26,30 @@
         android:id="@+id/createQuizFragment2"
         android:name="com.ajaygalagali.quizly.fragments.createQuiz.CreateQuizFragment"
         android:label="fragment_create_quiz"
-        tools:layout="@layout/fragment_create_quiz" />
+        tools:layout="@layout/fragment_create_quiz" >
+        <action
+            android:id="@+id/action_createQuizFragment2_to_questionsListFragment"
+            app:destination="@id/questionsListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/questionsListFragment"
+        android:name="com.ajaygalagali.quizly.fragments.createQuiz.QuestionsListFragment"
+        android:label="fragment_questions_list"
+        tools:layout="@layout/fragment_questions_list" >
+        <action
+            android:id="@+id/action_questionsListFragment_to_addEditQuestionFragment"
+            app:destination="@id/addEditQuestionFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addEditQuestionFragment"
+        android:name="com.ajaygalagali.quizly.fragments.createQuiz.AddEditQuestionFragment"
+        android:label="fragment_add_edit_question"
+        tools:layout="@layout/fragment_add_edit_question" >
+        <action
+            android:id="@+id/action_addEditQuestionFragment_to_questionsListFragment"
+            app:destination="@id/questionsListFragment" />
+        <argument
+            android:name="questionArgs"
+            app:argType="com.ajaygalagali.quizly.models.QuestionsModel" />
+    </fragment>
 </navigation>

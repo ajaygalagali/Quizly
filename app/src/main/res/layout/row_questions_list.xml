@@ -8,10 +8,9 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:layout_marginStart="16dp"
+        android:clickable="true"
 
-        android:layout_marginEnd="16dp"
+        android:foreground="?android:attr/selectableItemBackground"
         app:cardUseCompatPadding="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -19,13 +18,13 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
+            android:id="@+id/tvQuestionOnList"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="16dp"
             android:text="This is a question item"
-            android:textColor="@color/matteBlack"
 
-            />
+            android:textColor="@color/matteBlack" />
 
     </androidx.cardview.widget.CardView>
 

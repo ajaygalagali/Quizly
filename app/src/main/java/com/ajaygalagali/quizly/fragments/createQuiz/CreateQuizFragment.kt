@@ -6,8 +6,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import com.ajaygalagali.quizly.R
 import com.ajaygalagali.quizly.databinding.FragmentCreateQuizBinding
+import com.ajaygalagali.quizly.models.QuestionsModel
 import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.DateValidatorPointForward
 import com.google.android.material.datepicker.MaterialDatePicker
@@ -16,21 +18,31 @@ import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.TimeFormat
 import java.text.DateFormat
 import java.util.*
+import kotlin.collections.ArrayList
 
 
 class CreateQuizFragment : Fragment(R.layout.fragment_create_quiz){
 
+
+
     private val TAG = "CreateQuizFragment"
 
-    lateinit var binding: FragmentCreateQuizBinding
+    private lateinit var binding: FragmentCreateQuizBinding
+
+    companion object{
+        val QuestionsArray : ArrayList<QuestionsModel> = arrayListOf()
+    }
+
 
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+
         binding = FragmentCreateQuizBinding.bind(view)
 
+        activity?.actionBar?.title = "Create Quiz"
 
         binding.btnCreateQuizChild.setOnClickListener {
 
@@ -72,6 +84,12 @@ class CreateQuizFragment : Fragment(R.layout.fragment_create_quiz){
             
 
         }
+
+        // Go to QuestionsList Fragement
+        binding.btnAddQuetions.setOnClickListener {
+            findNavController().navigate(R.id.action_createQuizFragment2_to_questionsListFragment)
+        }
+
         // Date and Time Picking
         binding.btnPickStartDate.setOnClickListener { pickStartDate() }
         binding.btnPickStartTime.setOnClickListener { pickStartTime() }
