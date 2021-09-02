@@ -24,7 +24,7 @@ class PlayEndFragment : Fragment(R.layout.fragment_play_end) {
         val finalScore = args.score
         val totaln = args.totalN
 
-        binding.tvFinalScore.text = "Your final Score: " + finalScore + "/"
+        binding.tvFinalScore.text = "Your final Score: " + finalScore + "/" + totaln
 
 
 
