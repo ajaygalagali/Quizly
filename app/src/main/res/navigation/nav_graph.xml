@@ -21,7 +21,15 @@
         android:id="@+id/questionDisplayFragment"
         android:name="com.ajaygalagali.quizly.fragments.QuestionDisplayFragment"
         android:label="fragment_question_display"
-        tools:layout="@layout/fragment_question_display" />
+        tools:layout="@layout/fragment_question_display" >
+        <argument
+            android:name="quizCode"
+            app:argType="string"
+            android:defaultValue="0000" />
+        <action
+            android:id="@+id/action_questionDisplayFragment_to_playEndFragment"
+            app:destination="@id/playEndFragment" />
+    </fragment>
     <fragment
         android:id="@+id/createQuizFragment2"
         android:name="com.ajaygalagali.quizly.fragments.createQuiz.CreateQuizFragment"
@@ -30,6 +38,9 @@
         <action
             android:id="@+id/action_createQuizFragment2_to_questionsListFragment"
             app:destination="@id/questionsListFragment" />
+        <action
+            android:id="@+id/action_createQuizFragment2_to_quizShareFragment"
+            app:destination="@id/quizShareFragment" />
     </fragment>
     <fragment
         android:id="@+id/questionsListFragment"
@@ -51,5 +62,28 @@
         <argument
             android:name="questionArgs"
             app:argType="com.ajaygalagali.quizly.models.QuestionsModel" />
+    </fragment>
+    <fragment
+        android:id="@+id/quizShareFragment"
+        android:name="com.ajaygalagali.quizly.fragments.createQuiz.QuizShareFragment"
+        android:label="fragment_quiz_share"
+        tools:layout="@layout/fragment_quiz_share" >
+        <argument
+            android:name="quizModel"
+            app:argType="com.ajaygalagali.quizly.models.QuizModel" />
+    </fragment>
+    <fragment
+        android:id="@+id/playEndFragment"
+        android:name="com.ajaygalagali.quizly.fragments.PlayEndFragment"
+        android:label="fragment_play_end"
+        tools:layout="@layout/fragment_play_end" >
+        <argument
+            android:name="score"
+            app:argType="string"
+            android:defaultValue="-1" />
+        <argument
+            android:name="totalN"
+            app:argType="integer"
+            android:defaultValue="-1" />
     </fragment>
 </navigation>

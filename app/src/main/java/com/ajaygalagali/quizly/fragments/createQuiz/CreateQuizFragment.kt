@@ -3,22 +3,24 @@ package com.ajaygalagali.quizly.fragments.createQuiz
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
+import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import com.ajaygalagali.quizly.R
 import com.ajaygalagali.quizly.databinding.FragmentCreateQuizBinding
 import com.ajaygalagali.quizly.models.QuestionsModel
+import com.ajaygalagali.quizly.models.QuizModel
 import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.DateValidatorPointForward
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.TimeFormat
+import com.google.firebase.firestore.FirebaseFirestore
 import java.text.DateFormat
 import java.util.*
 import kotlin.collections.ArrayList
+import kotlin.random.Random
 
 
 class CreateQuizFragment : Fragment(R.layout.fragment_create_quiz){
@@ -33,6 +35,11 @@ class CreateQuizFragment : Fragment(R.layout.fragment_create_quiz){
         val QuestionsArray : ArrayList<QuestionsModel> = arrayListOf()
     }
 
+    private var startDateMilli = 0L
+    private var startTimeMilli = 0L
+    private var endDateMilli = 0L
+    private var endTimeMilli = 0L
+
 
 
 
@@ -42,7 +49,7 @@ class CreateQuizFragment : Fragment(R.layout.fragment_create_quiz){
 
         binding = FragmentCreateQuizBinding.bind(view)
 
-        activity?.actionBar?.title = "Create Quiz"
+        val db = FirebaseFirestore.getInstance()
 
         binding.btnCreateQuizChild.setOnClickListener {
 
@@ -73,8 +80,41 @@ class CreateQuizFragment : Fragment(R.layout.fragment_create_quiz){
                     endDate == "Pick Date" -> {
                         Snackbar.make(parentFragment?.view as View,"Pick end date",
                             Snackbar.LENGTH_SHORT).show()
-                    }else->{
+                    }
+                    QuestionsArray.isEmpty() ->{
+                        Snackbar.make(parentFragment?.view as View,"Add Questions to Quiz",
+                            Snackbar.LENGTH_SHORT).show()
+                    }
+                    else->{
                     Log.d(TAG, "onViewCreated: $title $startDate $startTime $endDate $endTime ")
+                        // Upload to Firestore
+
+                        val now = Calendar.getInstance().time
+
+
+                        val newQuiz = QuizModel(
+                            id = UUID.randomUUID().toString(),
+                            title = title,
+                            createdTimestamp = now,
+                            startTimestamp = Date(startDateMilli+startTimeMilli),
+                            endTimestamp = Date(endDateMilli+endTimeMilli),
+                            quizCode = Random.nextInt(1000,9999).toString(),
+                            questions = QuestionsArray
+
+
+                        )
+                        db.collection("QuizCollection").document(newQuiz.quizCode).set(newQuiz)
+
+                            .addOnSuccessListener {
+                            Toast.makeText(context, "Quiz created successfully - ${newQuiz.quizCode}",Toast.LENGTH_SHORT).show()
+                                val action = CreateQuizFragmentDirections.actionCreateQuizFragment2ToQuizShareFragment(newQuiz)
+                                findNavController().navigate(action)
+
+                        }.addOnFailureListener {ex->
+                            Log.d(TAG, "onViewCreated: ")
+                            Snackbar.make(parentFragment?.view as View,ex.message!!,
+                                Snackbar.LENGTH_SHORT).show()
+                        }
 
                     }                    
                 }
@@ -117,7 +157,7 @@ class CreateQuizFragment : Fragment(R.layout.fragment_create_quiz){
 
         mDatePicker.addOnPositiveButtonClickListener {
             var pickedStartDate = Date(it)
-            var startDateInMillisecond = it - ((5 * 60 * 60 * 1000) + (30 * 60 * 1000))
+            startDateMilli = it - ((5 * 60 * 60 * 1000) + (30 * 60 * 1000))
             val df = DateFormat.getDateInstance(DateFormat.MEDIUM)
             binding.btnPickStartDate.text = df.format(pickedStartDate)
 
@@ -144,7 +184,7 @@ class CreateQuizFragment : Fragment(R.layout.fragment_create_quiz){
 
         mDatePicker.addOnPositiveButtonClickListener {
             var pickedStartDate = Date(it)
-            var startDateInMillisecond = it - ((5 * 60 * 60 * 1000) + (30 * 60 * 1000))
+            endDateMilli = it - ((5 * 60 * 60 * 1000) + (30 * 60 * 1000))
             val df = DateFormat.getDateInstance(DateFormat.MEDIUM)
             binding.btnPickEndDate.text = df.format(pickedStartDate)
 
@@ -165,7 +205,7 @@ class CreateQuizFragment : Fragment(R.layout.fragment_create_quiz){
             .addOnPositiveButtonClickListener {
                 val hr = materialTimePicker.hour
                 val min = materialTimePicker.minute
-//                timeInMillisecond = (hr*60*60*1000) + (min*60*1000)
+                startTimeMilli = ((hr*60*60*1000) + (min*60*1000)).toLong()
 
                 var pickedStartTime = "${materialTimePicker.hour} : ${materialTimePicker.minute}"
                 binding.btnPickStartTime.text = pickedStartTime
@@ -190,7 +230,7 @@ class CreateQuizFragment : Fragment(R.layout.fragment_create_quiz){
             .addOnPositiveButtonClickListener {
                 val hr = materialTimePicker.hour
                 val min = materialTimePicker.minute
-//                timeInMillisecond = (hr*60*60*1000) + (min*60*1000)
+                endTimeMilli = ((hr*60*60*1000) + (min*60*1000)).toLong()
 
                 var pickedEndTime = "${materialTimePicker.hour} : ${materialTimePicker.minute}"
                 binding.btnPickEndTime.text = pickedEndTime
